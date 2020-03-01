@@ -97,6 +97,11 @@ class TicTacPy():
                     print(f"{self.printer.PLAYERS[self.board[pattern[0]]]} wins!")
                     return
 
+            # Detect draw.
+            if all(self.board):
+                print("Draw!")
+                return
+
             # Receive player input.
             while True:
                 try:
