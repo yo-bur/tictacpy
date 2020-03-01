@@ -31,11 +31,6 @@ class Printer():
     def __init__(self, board):
         self.board = board
 
-    def print_title(self):
-        print("TicTacPy - @yo__bur")
-        print("===================")
-        print("")
-
     def _overlay_tile_number(orig):
         @functools.wraps(orig)
         def inner(self, tile_number=0, line_number=0):
@@ -93,8 +88,6 @@ class TicTacPy():
 
 
     def start(self):
-        self.printer.print_title()
-
         while True:
             self.printer.print_board()
 
@@ -108,12 +101,12 @@ class TicTacPy():
             while True:
                 try:
                     selection = int(input(f"[{self.printer.PLAYERS[self.current_player]}] Pick a tile: ")) - 1
-                except ValueError:
-                    print("Invalid input...")
-                    continue
+                    if self.board[selection] != 0:
+                        print("Tile has already been selected...")
+                        continue
 
-                if self.board[selection] != 0:
-                    print("Tile has already been selected...")
+                except (ValueError, IndexError):
+                    print("Invalid input...")
                     continue
 
                 break
@@ -126,8 +119,15 @@ class TicTacPy():
 
 
 def main():
-    game = TicTacPy()
-    game.start()
+    print("TicTacPy - @yo__bur")
+    print("===================")
+    print("")
+
+    while True:
+        game = TicTacPy()
+        game.start()
+
+        input("Press Enter/Return to play again or CTRL+C to quit.")
 
 
 if __name__ == "__main__":
